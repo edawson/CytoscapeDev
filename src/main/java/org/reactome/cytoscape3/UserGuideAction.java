@@ -15,29 +15,28 @@ import org.cytoscape.application.swing.AbstractCyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.util.swing.OpenBrowser;
 
+public class UserGuideAction extends AbstractCyAction {
 
-public class UserGuideAction extends AbstractCyAction
-{
+    // There is no need to cache this URL since it should be managed by PlugInScopeObjectManager
+//    private String userGuideURL = PlugInScopeObjectManager.getManager().getUserGuideURL();
 
-    private CySwingApplication desktopApp;
-    private OpenBrowser browser;
-    private String userGuideURL = PlugInScopeObjectManager.getManager().getUserGuideURL();
-
-    public UserGuideAction(CySwingApplication desktopApp, OpenBrowser browser)
-    {
+    public UserGuideAction(CySwingApplication desktopApp, OpenBrowser browser) {
         //Add the 'User Guide' item to the ReactomeFI menu
         super("User Guide");
-        this.desktopApp = desktopApp;
-        this.browser = browser;
         setPreferredMenu("Apps.ReactomeFI");
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
+    public void actionPerformed(ActionEvent e) {
         //Pop open a browser window pointing to the
         //online Reactome FI app user guide.
-        browser.openURL(userGuideURL);
+        String url = PlugInScopeObjectManager.getManager().getProperties().getProperty("userGuideURL");
+        if (url == null) {
+            PlugInUtilities.showErrorMessage("Error in Showing User Guide",
+                                             "User guide URL has not set up. No user guide can be shown.");
+            return;
+        }
+        PlugInUtilities.openURL(url);
         
         //Pop up a JEditorPane which contains the offline
         //user guide.

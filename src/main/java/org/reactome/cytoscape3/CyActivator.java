@@ -9,17 +9,12 @@ package org.reactome.cytoscape3;
  */
 import java.util.Properties;
 
-
-
-
-//import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.session.CySessionManager;
 import org.cytoscape.task.write.SaveSessionAsTaskFactory;
-
 import org.cytoscape.util.swing.FileUtil;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
@@ -30,6 +25,7 @@ import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyleFactory;
 import org.cytoscape.work.TaskManager;
 import org.osgi.framework.BundleContext;
+//import org.cytoscape.application.CyApplicationManager;
 
 public class CyActivator extends AbstractCyActivator {
 
@@ -41,6 +37,7 @@ public class CyActivator extends AbstractCyActivator {
 	@Override
     public void start(BundleContext context) throws Exception {
 	    this.context = context;
+	    PlugInScopeObjectManager.getManager().setBundleContext(context);
 	    /*Grab essential Cytoscape Service References*/
 	    CySwingApplication desktopApp = getService(context, CySwingApplication.class);
 		TaskManager taskManager = getService(context, TaskManager.class);

@@ -6,7 +6,6 @@
 package org.reactome.cytoscape3;
 
 import java.awt.event.WindowAdapter;
-
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,9 +16,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import org.cytoscape.application.swing.CySwingApplication;
+import org.osgi.framework.BundleContext;
 import org.reactome.cancerindex.model.CancerIndexSentenceDisplayFrame;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
@@ -40,6 +40,8 @@ public class PlugInScopeObjectManager {
     // Currently selected FI network version
     private String fiNetworkVersion;
     private static final String userGuideURL = "http://wiki.reactome.org/index.php/Reactome_FI_Cytoscape_Plugin";
+    // Cache a bundle context to be used later on
+    private BundleContext context;
     
     private PlugInScopeObjectManager() {
     }
@@ -48,6 +50,14 @@ public class PlugInScopeObjectManager {
         if (manager == null)
             manager = new PlugInScopeObjectManager();
         return manager;
+    }
+        
+    public void setBundleContext(BundleContext context) {
+        this.context = context;
+    }
+    
+    public BundleContext getBundleContext() {
+        return this.context;
     }
     
     public String getFiNetworkVersion() {
@@ -155,6 +165,7 @@ public class PlugInScopeObjectManager {
     public String getDataSourceURL() {
         return getDataSourceURL(getFiNetworkVersion());
     }
+    
     public static String getUserGuideURL()
     {
         return userGuideURL;

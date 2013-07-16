@@ -2,7 +2,6 @@ package org.reactome.cytoscape3;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,9 +9,14 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
+
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanel;
 import org.cytoscape.application.swing.CytoPanelName;
+import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNetworkFactory;
+import org.cytoscape.model.CyNetworkManager;
+import org.cytoscape.model.CyNode;
 import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
@@ -25,16 +29,8 @@ import org.cytoscape.work.TaskManager;
 import org.cytoscape.work.TaskMonitor;
 import org.reactome.cancer.CancerAnalysisUtilitites;
 import org.reactome.cancer.MATFileLoader;
-
-
-
 import org.reactome.r3.util.FileUtility;
 import org.reactome.r3.util.InteractionUtilities;
-
-import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyNetworkFactory;
-import org.cytoscape.model.CyNetworkManager;
-import org.cytoscape.model.CyNode;
 
 
 
@@ -283,6 +279,7 @@ public class GeneSetMutationAnalysisTask extends AbstractTask
         fu.close();
         return genes;
     }
+    
     private CyNetwork constructFINetwork(Set<String> selectedGenes, String title) throws Exception
     {
         // Check if a local service should be used
@@ -300,6 +297,7 @@ public class GeneSetMutationAnalysisTask extends AbstractTask
             else
                 network = generator.constructFINetwork(fis);
         }
+        
         netManager.addNetwork(network);
         //    CyNetworkView view = viewFactory.createNetworkView(network);
         //    VisualStyleHelper styleHelper = new VisualStyleHelper(visMapManager,
